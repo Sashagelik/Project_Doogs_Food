@@ -15,6 +15,7 @@ import { NotFoundPage } from '../../pages/NotFoundPage/not-found-page';
 import { UserContext } from '../../context/userContext';
 import { CardContext } from '../../context/cardContext';
 import { FavoritePage } from '../../pages/FavoritePage/favorite-page';
+import { SortContext } from '../../context/sortContext';
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -23,7 +24,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 300);
   const [favorites, setFavorites] = useState([]);
-
+  const [selectedTabId, setSelectedTabId ] = useState('')
 
   const navigate = useNavigate()
   const handleRequest = useCallback(() => {
@@ -94,6 +95,7 @@ function App() {
   }, [currentUser, cards])
 
   return (
+    <SortContext.Provider value={{selectedTabId, setSelectedTabId}}>
       <UserContext.Provider value={{ user: currentUser, isLoading }}>
         <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
           <Header>
@@ -113,14 +115,14 @@ function App() {
             <SeachInfo searchText={searchQuery} />
             <Routes>
               <Route index element={
-                <CatalogPage/>
+                <CatalogPage />
               } />
               <Route path='/product/:productId' element={
                 <ProductPage
                   isLoading={isLoading}
                 />
               } />
-              <Route path='/favorites' element={ <FavoritePage/>} 
+              <Route path='/favorites' element={<FavoritePage />}
               />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
@@ -128,6 +130,7 @@ function App() {
           <Footer />
         </CardContext.Provider>
       </UserContext.Provider>
+    </SortContext.Provider>
   )
 }
 

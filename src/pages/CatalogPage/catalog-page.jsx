@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import CardList from "../../components/CardList/card-list"
 import Sort from "../../components/Sort/sort"
-import Spinner from "../../components/Spinner"
 import { CardContext } from "../../context/cardContext";
+import { SortContext } from "../../context/sortContext";
 
 const tabs = [
   {
@@ -21,9 +21,10 @@ const tabs = [
 
 export const CatalogPage = () => {
     const {cards} = useContext(CardContext);
+    const {setSelectedTabId} = useContext(SortContext);
     return (
         <>
-            <Sort tabs={tabs}/>
+            <Sort tabs={tabs} currentSort={setSelectedTabId} onChangeSort = {tabid=>{return setSelectedTabId(tabid)}} />
             <div className='content__cards'>
                 <CardList cards={cards}/>
             </div>
