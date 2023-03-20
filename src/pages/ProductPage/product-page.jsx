@@ -11,32 +11,37 @@ import api from "../../utils/api"
 
 
 export const ProductPage = () => {
-    const { productId } = useParams();
-    const { handleLike} = useContext(CardContext);
+  const { productId } = useParams();
+  const { handleLike } = useContext(CardContext);
 
-    const handleGetProduct = useCallback(() => api.getProductById(productId), [productId]);
+  const handleGetProduct = useCallback(() => api.getProductById(productId), [productId]);
 
-    const {
-      data: product, 
-      setData: setProduct, 
-      loading: isLoading, 
-      error: errorState
-    } = useApi(handleGetProduct)
+  const {
+    data: product,
+    setData: setProduct,
+    loading: isLoading,
+    error: errorState
+  } = useApi(handleGetProduct)
 
 
-    const handleProductLike = useCallback(() => {  
-        handleLike(product).then((updateProduct)=> {
-          setProduct(updateProduct);
-        });
-    },[product, handleLike, setProduct]) 
-    
+  const handleProductLike = useCallback(() => {
+    handleLike(product).then((updateProduct) => {
+      setProduct(updateProduct);
+    });
+  }, [product, handleLike, setProduct])
 
-    return (
-        <>
-          <div className='content__cards'>
-            {isLoading ?<Spinner/>: !errorState && <Product {...product} setProduct={setProduct} onProductLike={handleProductLike}/>}
-            {!isLoading && errorState && <NotFound/>}
-            </div>
-      </>
-    )
+  const onSendReview = (newProduct) => {
+    console.log(newProduct);
+    setProduct({ ...newProduct })
+  }
+
+
+  return (
+    <>
+      <div className='content__cards'>
+        {isLoading ? <Spinner /> : !errorState && <Product onSendReview={onSendReview} {...product} setProduct={setProduct} onProductLike={handleProductLike} />}
+        {!isLoading && errorState && <NotFound />}
+      </div>
+    </>
+  )
 }

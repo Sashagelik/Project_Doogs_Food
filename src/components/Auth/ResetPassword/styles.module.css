@@ -1,0 +1,70 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 388px;
+  height: auto;
+}
+
+
+.error {
+  color:red;
+  max-width: 350px;
+  text-align: center;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 16px;
+  gap: 10px;
+  width: auto;
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid #CFD8DC;
+  border-radius: 12px;
+
+}
+
+.input:hover {
+  border: 1px solid #FFE44D;
+  caret-color: #FFE44D;
+}
+
+.eye {
+  position: relative;
+}
+
+.eye img {
+  position: absolute;
+  top: -45px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.authInfo {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+  color: #7B8E98;
+  cursor: pointer;
+}
+
+.button {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: right;
+  color: #7B8E98;
+  cursor: pointer;
+  text-align: left;
+}

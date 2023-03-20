@@ -7,7 +7,7 @@ import { NotFound } from '../NotFound/NotFound';
 import './styles.css';
 
 const CardList = ({ cards }) => {
-  console.log(cards);
+
   const navigate = useNavigate();
   const { isLoading } = useContext(UserContext)
   const { selectedTabId } = useContext(SortContext)
