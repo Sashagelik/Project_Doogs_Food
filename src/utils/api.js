@@ -13,7 +13,6 @@ const freshToken = () => {
 
 const config = {
   baseUrl: "https://api.react-learning.ru",
-
   freshToken: freshToken,
 };
 
@@ -33,6 +32,22 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       ...this._freshToken(),
+    }).then(onResponce);
+  }
+
+  updateUserInfo(body) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      ...this._freshToken(),
+      body: JSON.stringify(body),
+    }).then(onResponce);
+  }
+
+  updateAvatar(avatar) {
+    return fetch(`${this._baseUrl}/v2/group-10/users/me/avatar`,{
+      ...this._freshToken(),
+      method: "PATCH",
+      body: JSON.stringify(avatar),
     }).then(onResponce);
   }
 
@@ -57,11 +72,17 @@ class Api {
   }
 
   createReviewProduct(productId, body) {
-    console.log(productId, body);
     return fetch(`${this._baseUrl}/products/review/${productId}`, {
       method: "POST",
       ...this._freshToken(),
       body: JSON.stringify(body),
+    }).then(onResponce);
+  }
+
+  deleteReview(productId, reviewId) {
+    return fetch(`${this._baseUrl}/products/review/${productId}/${reviewId}`, {
+      method: "DELETE",
+      ...this._freshToken(),
     }).then(onResponce);
   }
 

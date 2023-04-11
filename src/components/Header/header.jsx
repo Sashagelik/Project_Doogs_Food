@@ -4,9 +4,9 @@ import { ReactComponent as FavoriteIcon } from './img/favorites.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { CardContext } from '../../context/cardContext';
-import { ReactComponent as Login } from '../Header/img/Login.svg';
+import { ReactComponent as LoginIcon } from '../Header/img/Login.svg';
 import { UserContext } from '../../context/userContext';
-
+import { ReactComponent as Profile } from '../Profile/image/Profile.svg'
 
 
 function Header({ children, user, onUpdateUser, setActiveModal }) {
@@ -17,10 +17,6 @@ function Header({ children, user, onUpdateUser, setActiveModal }) {
 
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
 
   return (
     <header className={cn(s.header, 'cover')}>
@@ -33,7 +29,8 @@ function Header({ children, user, onUpdateUser, setActiveModal }) {
               {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
             </Link>
           </div>
-          {!isAuthentificated ? <Link className={cn(s.favoritesLink, "btn")} to={{ pathname: "/login", state: 'sfsdfsdf' }} onClick={() => setActiveModal(true)}>< Login /></Link> : <span style={{ cursor: "pointer" }} onClick={handleLogout} >Выйти</span>}
+          {!isAuthentificated ? <Link className={cn(s.favoritesLink, "btn")} to={"/login"} onClick={() => setActiveModal(true)}><LoginIcon /></Link>
+            : <Link className={cn(s.favoritesLink, "btn")} to={"/profile"} onClick={() => setActiveModal(true)}><Profile /></Link>}
         </div>
       </div>
     </header>

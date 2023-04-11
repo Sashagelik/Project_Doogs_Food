@@ -30,11 +30,9 @@ const Login = ({ setActiveModal }) => {
   const sendData = async (dataUser) => {
     try {
       const res = await authApi.login(dataUser);
-      console.log({ res });
       localStorage.setItem('token', res.token)
       navigate('/')
     } catch (error) {
-      console.log('Error', error);
       alert("Неправильный логин и пароль", error)
     }
   }

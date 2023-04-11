@@ -16,24 +16,23 @@ import { UserContext } from '../../context/userContext';
 import { CardContext } from '../../context/cardContext';
 import { FavoritePage } from '../../pages/FavoritePage/favorite-page';
 import { SortContext } from '../../context/sortContext';
-import FormList from '../FormList/formList';
-import RegistrationForm from '../FormList/RegistrationForm';
 import Modal from '../Modal/Modal';
 import Login from '../Auth/Login/Login';
 import Register from '../Auth/Register/Register';
 import ResetPassword from '../Auth/ResetPassword/ResetPassword';
+import Profile from '../Profile/Profile';
+import FaqPage from '../../pages/FAQ/FaqPage';
 
 
 export default function App() {
-  
+
   const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 300);
   const [favorites, setFavorites] = useState([]);
   const [selectedTabId, setSelectedTabId] = useState('')
-  const [formData, setFormData] = useState([])
   const [activeModal, setActiveModal] = useState(false)
   const [isAuthentificated, setIsAuthentificated] = useState(false)
 
@@ -123,7 +122,7 @@ export default function App() {
 
   return (
     <SortContext.Provider value={{ selectedTabId, setSelectedTabId }}>
-      <UserContext.Provider value={{ user: currentUser, isLoading, isAuthentificated }}>
+      <UserContext.Provider value={{ user: currentUser, isLoading, isAuthentificated, setCurrentUser }}>
         <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
           <Header setActiveModal={setActiveModal}>
             <Logo className="logo logo_place_header" href="/" />
@@ -137,6 +136,8 @@ export default function App() {
               <Route index element={<CatalogPage />} />
               <Route path='/product/:productId' element={<ProductPage isLoading={isLoading} />} />
               <Route path='/favorites' element={<FavoritePage />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/faq' element={<FaqPage />} />
               <Route path='/login'
                 element={
                   <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
@@ -159,28 +160,29 @@ export default function App() {
             </Routes>
             <Routes>
             </Routes>
-          </main> : <h2 className='not__auth'>Пожалуйста авторизуйтесь!
-            <Routes>
-              <Route path='/login'
-                element={
-                  <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-                    <Login setActiveModal={setActiveModal} />
-                  </Modal>}>
-              </Route>
-              <Route path='/register'
-                element={
-                  <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-                    <Register setActiveModal={setActiveModal} />
-                  </Modal>}>
-              </Route>
-              <Route path='/resetPassword'
-                element={
-                  <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-                    <ResetPassword setActiveModal={setActiveModal} />
-                  </Modal>}>
-              </Route>
-            </Routes>
-          </h2>}
+          </main> :
+            <h2 className='not__auth'>Пожалуйста авторизуйтесь!
+              <Routes>
+                <Route path='/login'
+                  element={
+                    <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+                      <Login setActiveModal={setActiveModal} />
+                    </Modal>}>
+                </Route>
+                <Route path='/register'
+                  element={
+                    <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+                      <Register setActiveModal={setActiveModal} />
+                    </Modal>}>
+                </Route>
+                <Route path='/resetPassword'
+                  element={
+                    <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+                      <ResetPassword setActiveModal={setActiveModal} />
+                    </Modal>}>
+                </Route>
+              </Routes>
+            </h2>}
           <Footer />
         </CardContext.Provider>
       </UserContext.Provider>

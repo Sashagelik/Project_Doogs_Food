@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import { useCallback } from "react"
-import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { NotFound } from "../../components/NotFound/NotFound"
 import { Product } from "../../components/Product/product"

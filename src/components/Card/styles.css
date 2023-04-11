@@ -132,6 +132,7 @@
 	display: inline-block;
 	transition: background-color .3s;
   color: inherit;
+  cursor: pointer;
 }
 
 .btn_type_primary {

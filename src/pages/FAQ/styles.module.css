@@ -1,0 +1,11 @@
+.faq__wrapper {
+  margin: 28px auto;
+
+}
+.title {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 32px;
+  color: #1A1A1A;
+  margin-bottom: 28px;
+}
