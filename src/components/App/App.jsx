@@ -59,7 +59,7 @@ export default function App() {
         setCurrentUser(userData);
         setCards(productsData.products);
         const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userData._id));
-        setFavorites(prevSate => favoriteProducts)
+        setFavorites((prevSate) => favoriteProducts)
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -122,7 +122,7 @@ export default function App() {
 
   return (
     <SortContext.Provider value={{ selectedTabId, setSelectedTabId }}>
-      <UserContext.Provider value={{ user: currentUser, isLoading, isAuthentificated, setCurrentUser }}>
+      <UserContext.Provider value={{ user: currentUser, isLoading, isAuthentificated, setCurrentUser}}>
         <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
           <Header setActiveModal={setActiveModal}>
             <Logo className="logo logo_place_header" href="/" />

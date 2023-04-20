@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Reiting from '../Reiting/Raiting';
 import s from './styles.module.css';
 
 

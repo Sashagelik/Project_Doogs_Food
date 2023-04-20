@@ -8,7 +8,7 @@ import FormList from "../../FormList/formList";
 import s from '../ResetPassword/styles.module.css';
 
 
-const ResetPassword = ({ title, setActiveModal }) => {
+const ResetPassword = ({ setActiveModal }) => {
   const [tokenResp, setTokenResp] = useState(null)
 
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
@@ -19,13 +19,12 @@ const ResetPassword = ({ title, setActiveModal }) => {
   useEffect(() => {
     setActiveModal(true)
   }, [setActiveModal])
+
   const sendData = async (data) => {
-    console.log({ data })
+
     if (!tokenResp) {
       try {
-        console.log(data);
         const res = await authApi.resetPass(data)
-        console.log({ res });
         setTokenResp(true)
       } catch (error) {
         alert('Постарайтесь вспомнить пароль')
@@ -35,7 +34,6 @@ const ResetPassword = ({ title, setActiveModal }) => {
         const res = await authApi.changePass(data.token, { password: data.password })
         navigate('/')
         localStorage.setItem('token', res.token)
-        console.log(res);
       } catch (error) {
         alert('Постарайтесь вспомнить пароль')
       }

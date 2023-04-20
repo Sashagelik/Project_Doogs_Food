@@ -15,6 +15,7 @@ const Profile = () => {
 
   const changeAvatarHandler = async () => {
     await api.updateAvatar({ avatar: 'https://a.d-cd.net/LkAAAgOwfuA-960.jpg' })
+
   }
 
   const required = {
@@ -27,7 +28,6 @@ const Profile = () => {
 
     try {
       const newUser = await api.updateUserInfo({ name, about })
-
       setCurrentUser({ ...newUser })
       alert('Данные успешно изменены');
     } catch (error) {

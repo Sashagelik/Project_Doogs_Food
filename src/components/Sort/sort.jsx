@@ -4,7 +4,8 @@ import "./styles.css";
 const Sort = ({currentSort, tabs = [], onChangeSort}) => {
 
 
-  function handleClick(e, tab) {
+ const handleClick = (e, tab) => {
+
     e.preventDefault();
     onChangeSort(tab.id)
   }

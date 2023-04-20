@@ -24,7 +24,7 @@ function Search({onSubmit: propsOnSubmit, onInput}) {
 
   return (
     <form className="search" onSubmit={handleFormSubmit}>
-      <input type="text" value={inputText} className='search__input' placeholder='Поиск' onInput={handleInput} />
+      <input type="text" value={inputText} className='search__input' placeholder='Поиск...' onInput={handleInput} />
       <button type='button' className='search__btn'>
         {inputText && <CloseIcon onClick={handleClearInput} className='search__icon-clear' />}
         {inputText && <SearchIcon onClick={handleFormSubmit} className='search__icon' />}

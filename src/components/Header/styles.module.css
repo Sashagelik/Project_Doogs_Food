@@ -11,13 +11,7 @@
 	gap: 80px;
 }
 
-@media (max-width: 700px) {
-	.header__wrapper {
-		flex-direction: column;
-		align-items: stretch;
-		gap: 20px;
-	}
-}
+
 .profile{
 	display: flex;
 	flex-direction: column;
@@ -62,4 +56,11 @@ left: 0;
 	position: absolute;
 	bottom: 60%;
 	left: 70%;
+}
+@media (max-width: 700px) {
+	.header__wrapper {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 20px;
+	}
 }

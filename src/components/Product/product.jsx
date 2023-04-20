@@ -13,6 +13,7 @@ import api from '../../utils/api';
 import FormList from '../FormList/formList';
 import { useForm } from 'react-hook-form';
 
+
 export const Product = ({ onSendReview, onProductLike, pictures, likes = [], reviews, tags, name, price, discount, description, wight, _id }) => {
 
 
@@ -20,7 +21,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
   const { user: currentUser } = useContext(UserContext);
   const [raiting, setRaiting] = useState(2)
   const [currentRating, setCurrentRating] = useState(0)
-  const [reviewsProduct, setReviewsProduct] = useState(reviews ?? [])
+  const [reviewsProduct, setReviewsProduct] = useState(reviews)
   const [users, setUsers] = useState([])
   const [showForm, setShowForm] = useState(false)
   const { register, handleSubmit, reset } = useForm({ mode: 'onBlur' });
@@ -28,7 +29,6 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
   const desctiptionHTML = createMarkup(description);
-
 
 
   useEffect(() => {
@@ -44,15 +44,18 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
   }, [])
 
   const getUser = (id) => {
+
     if (!users.length) {
       return "User"
     }
     let user = users.find(e => e._id === id)
+
     if (user?.avatar.includes('default-image')) {
       return { ...user, avatar: 'https://pluspng.com/img-png/png-smiling-face-open-2000.png' }
     }
     return user
   }
+  
 
   const sendReview = async (data) => {
     const newProduct = await api.createReviewProduct(_id, { text: data.review, rating: raiting })
@@ -64,8 +67,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
 
   const deleteReviewHandler = async (id) => {
     const result = await api.deleteReview(_id, id)
-    setReviewsProduct(()=>[...result.reviews])
-    console.log(result);
+    setReviewsProduct(() => [...result.reviews])
   }
 
   const textRegister = register("review", { required: false })
@@ -100,7 +102,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
             </div>
             <a href="/#" className={cn('btn', 'btn_type_primary', s.cart)}>В корзину</a>
           </div>
-          <button className={cn(s.favorite, { [s.favoriteActive]: isLike })} onClick={onProductLike}>
+          <button className={cn(s.favorite, { [s.favoriteActive]: isLike })} onClick={()=>onProductLike()}>
             <Save />
             <span>{isLike ? 'В избранном' : 'В избранное'}</span>
           </button>
@@ -152,10 +154,8 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
             <p>Следует учесть высокую калорийность продукта.</p>
           </div>
         </div>
-        
         <div>
-          <button className='btn' onClick={() => setShowForm(() => !showForm)}>Написать отзыв</button>
-         
+          <button className='btn' onClick={() => setShowForm(() => !showForm)}>{!showForm ? "Написать отзыв" : "Скрыть панель"}</button>
           {showForm && <div>
             <FormList submitForm={handleSubmit(sendReview)}>
               <Raiting raiting={raiting} isEditable={true} setRaiting={setRaiting} />
@@ -165,27 +165,25 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
               />
               <button className={cn(s.btnSubmit, 'btn')} type='submit'>Отправить отзыв</button>
             </FormList>
-
           </div>}
           <h3>Отзывы покупателей:</h3>
-          {reviewsProduct
-            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-            .map((item) => {
+          {reviewsProduct.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            .map((item) => {           
               return (
                 <div className={s.reviews} key={item._id}>
                   <div className={s.author}>
                     <div className={s.review__info}>
-                      <img className={s.review__avatar} src={getUser(item.author)?.avatar} alt="avatar" />
-                      <span>{getUser(item.author)?.name ?? 'user'}</span>
+                      <img className={s.review__avatar} src={(item.author)?.avatar} alt="avatar" />
+                      <span>{(item.author)?.name ?? 'user'}</span>
                       <span className={s.data}> {new Date(item.created_at).toLocaleDateString('ru', options).slice(0, -2)}</span>
                     </div>
                     <Raiting raiting={item.rating} isEditable={false} />
                   </div>
                   <div className={s.text}>
-                    <span>   
-                      { item?.text}
-                    </span> 
-                    {currentUser._id === item.author && <Basket onClick={() => deleteReviewHandler(item._id)} className={s.basket} />}
+                    <span>
+                      {item?.text}
+                    </span>
+                    {currentUser._id == item.author._id && <Basket onClick={() => deleteReviewHandler(item._id)} className={s.basket} />}
                   </div>
                 </div>
               )

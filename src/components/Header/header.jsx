@@ -17,20 +17,20 @@ function Header({ children, user, onUpdateUser, setActiveModal }) {
 
   const navigate = useNavigate()
 
-
+ 
   return (
     <header className={cn(s.header, 'cover')}>
       <div className="container">
         <div className={s.header__wrapper}>
           {children}
           <div className={s.iconsMenu}>
-            <Link className={s.favoritesLink} to={{ pathname: "/favorites", state: 'sfsdfsdf' }}>
+            <Link className={s.favoritesLink} to={{ pathname: "/favorites", state: 'favorites_icon' }}>
               <FavoriteIcon />
               {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
             </Link>
           </div>
           {!isAuthentificated ? <Link className={cn(s.favoritesLink, "btn")} to={"/login"} onClick={() => setActiveModal(true)}><LoginIcon /></Link>
-            : <Link className={cn(s.favoritesLink, "btn")} to={"/profile"} onClick={() => setActiveModal(true)}><Profile /></Link>}
+            : <Link className={cn(s.favoritesLink, "btn")} to={"/profile"} onClick={() => setActiveModal(true)}><Profile /></Link> }
         </div>
       </div>
     </header>
