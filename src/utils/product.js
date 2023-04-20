@@ -7,3 +7,14 @@ export const calcDiscountPrice = (price, discount) => {
 export const createMarkup = (textToHtml) => {
     return {__html: textToHtml}
 } 
+
+export const text = (searchCount) => {
+  const n = searchCount % 10
+  if (n === 1) {
+    return "товар.";
+  } else if (n > 1 && n < 5) {
+    return "товара.";
+  } else if (n > 4 || n === 0) {
+    return "товаров.";
+  }
+};
