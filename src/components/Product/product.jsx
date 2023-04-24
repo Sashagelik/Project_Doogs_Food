@@ -155,7 +155,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
           </div>
         </div>
         <div>
-          <button className='btn' onClick={() => setShowForm(() => !showForm)}>{!showForm ? "Написать отзыв" : "Скрыть панель"}</button>
+          <button className='btn' onClick={() => setShowForm(() => !showForm)}>{!showForm ? "Оставить отзыв" : "Скрыть панель"}</button>
           {showForm && <div>
             <FormList submitForm={handleSubmit(sendReview)}>
               <Raiting raiting={raiting} isEditable={true} setRaiting={setRaiting} />

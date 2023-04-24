@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import authApi from "../../../utils/authApi";
 
 const Register = ({ setActiveModal }) => {
+
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
   const [type, setType] = useState(false)
 
@@ -23,7 +24,6 @@ const Register = ({ setActiveModal }) => {
   const handleClick = (e) => {
     e.preventDefault()
     navigate('/login')
-    console.log(e);
   }
 
   const sendData = async (data) => {
@@ -50,9 +50,7 @@ const Register = ({ setActiveModal }) => {
         <div className={s.auth}>
           <input className={s.input} type="text" placeholder="Email" {...emailRegister} />
           <input className={s.input} type={type ? 'text' : 'password'} placeholder="Password" {...passwordRegister} />
-          <span onClick={() => setType(!type)} className={s.eye}>{type
-            ? <img src={openEye} alt="openEye" />
-            : <img src={closeEye} alt="closeEye" />}</span>
+          <span onClick={() => setType(!type)} className={s.eye}>{type ? <img src={openEye} alt="openEye" /> : <img src={closeEye} alt="closeEye" />}</span>
           {errors?.password && <span className={s.error} >{errors.password?.message}</span>}
           <span className={s.authInfo}>Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой
             конфиденциальности и соглашаетесь на информационную рассылку.</span>

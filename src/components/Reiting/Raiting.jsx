@@ -6,7 +6,7 @@ import s from '../Reiting/styles.module.css';
 
 const Raiting = ({ raiting, setRaiting, isEditable = false }) => {
 
-  //Создаем массив из пяти реакт-фрагментов, чтобы потом полижить в них svg
+  //Создаем массив из пяти реакт-фрагментов, чтобы потом полoжить в них svg
   const emptyFragment = new Array(5).fill(<> </>)
 
   const [raitingArr, setRaitingArr] = useState(emptyFragment)
