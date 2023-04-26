@@ -12,6 +12,7 @@ import Raiting from '../Reiting/Raiting';
 import api from '../../utils/api';
 import FormList from '../FormList/formList';
 import { useForm } from 'react-hook-form';
+import openNotification from '../Notification/Notification';
 
 
 export const Product = ({ onSendReview, onProductLike, pictures, likes = [], reviews, tags, name, price, discount, description, wight, _id }) => {
@@ -37,7 +38,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
     const accumRaiting = (Math.floor(ratAcc / reviews.length))
     setRaiting(accumRaiting)
     setCurrentRating(accumRaiting)
-  }, [reviews?.length])
+  }, [reviews.length, reviews])
 
   useEffect(() => {
     api.getUserGroup().then(data => setUsers(data))
@@ -55,19 +56,29 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
     }
     return user
   }
-  
+
 
   const sendReview = async (data) => {
-    const newProduct = await api.createReviewProduct(_id, { text: data.review, rating: raiting })
-    setReviewsProduct([...newProduct.reviews])
-    onSendReview(newProduct)
-    setShowForm(false)
-    reset()
+    try {
+      const newProduct = await api.createReviewProduct(_id, { text: data.review, rating: raiting })
+      setReviewsProduct([...newProduct.reviews])
+      onSendReview(newProduct)
+      setShowForm(false)
+      reset()
+      openNotification('success', 'Успешно', 'Ваш отзыв успешно отправлен!')
+    } catch (error) {
+      openNotification('error', 'Ошибка', 'Ваш отзыв не отправлен(')
+    }
   }
 
   const deleteReviewHandler = async (id) => {
-    const result = await api.deleteReview(_id, id)
-    setReviewsProduct(() => [...result.reviews])
+    try {
+      const result = await api.deleteReview(_id, id)
+      setReviewsProduct(() => [...result.reviews])
+      openNotification('success', 'Успешно', 'Отзыв успешно удален')
+    } catch (error) {
+      openNotification('error', 'Ошибка', 'Отзыв удалить не удалось')
+    }
   }
 
   const textRegister = register("review", { required: false })
@@ -102,7 +113,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
             </div>
             <a href="/#" className={cn('btn', 'btn_type_primary', s.cart)}>В корзину</a>
           </div>
-          <button className={cn(s.favorite, { [s.favoriteActive]: isLike })} onClick={()=>onProductLike()}>
+          <button className={cn(s.favorite, { [s.favoriteActive]: isLike })} onClick={() => onProductLike()}>
             <Save />
             <span>{isLike ? 'В избранном' : 'В избранное'}</span>
           </button>
@@ -168,7 +179,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
           </div>}
           <h3>Отзывы покупателей:</h3>
           {reviewsProduct.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-            .map((item) => {           
+            .map((item) => {
               return (
                 <div className={s.reviews} key={item._id}>
                   <div className={s.author}>
@@ -183,7 +194,7 @@ export const Product = ({ onSendReview, onProductLike, pictures, likes = [], rev
                     <span>
                       {item?.text}
                     </span>
-                    {currentUser._id == item.author._id && <Basket onClick={() => deleteReviewHandler(item._id)} className={s.basket} />}
+                    {currentUser._id === item.author._id && <Basket onClick={() => deleteReviewHandler(item._id)} className={s.basket} />}
                   </div>
                 </div>
               )

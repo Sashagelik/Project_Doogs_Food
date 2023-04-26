@@ -26,7 +26,8 @@ const CardList = ({ cards }) => {
               return b.discount - a.discount
           }
         })
-          .map((item) => <Card key={item._id} {...item} />)}</div>
+          .map((item) => <Card key={item._id} {...item} />)}
+      </div>
     </>
   )
 };

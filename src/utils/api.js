@@ -29,6 +29,13 @@ class Api {
     }).then(onResponce);
   }
 
+  deleteProduct(productId) {
+    return fetch(`${this._baseUrl}/products/${productId}`, {
+      method: "DELETE",
+      ...this._freshToken(),
+    }).then(onResponce);
+  }
+
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       ...this._freshToken(),

@@ -5,6 +5,7 @@ import { UserContext } from '../../context/userContext';
 import api from '../../utils/api';
 import FormList from '../FormList/formList';
 import s from '../Profile/styles.module.css';
+import openNotification from '../Notification/Notification';
 
 
 const Profile = () => {
@@ -15,7 +16,6 @@ const Profile = () => {
 
   const changeAvatarHandler = async () => {
     await api.updateAvatar({ avatar: 'https://a.d-cd.net/LkAAAgOwfuA-960.jpg' })
-
   }
 
   const required = {
@@ -29,9 +29,9 @@ const Profile = () => {
     try {
       const newUser = await api.updateUserInfo({ name, about })
       setCurrentUser({ ...newUser })
-      alert('Данные успешно изменены');
+      openNotification('success', 'Успешно', 'Данные изменены ')
     } catch (error) {
-      alert(error + 'Проверьте пожалуйста введенные данные')
+      openNotification('error', 'Ошибка', 'Данные удалить не удалось')
     }
   }
 
@@ -39,9 +39,9 @@ const Profile = () => {
     try {
       const newUser = await api.updateAvatar({ avatar: avatar })
       setCurrentUser({ ...newUser })
-      alert('Аватар успешно изменен')
+      openNotification('success', 'Успешно', 'Аватар успешно изменен')
     } catch (error) {
-      alert(error + 'Проверьте пожалуйста введенные данные')
+      openNotification('error', 'Ошибка', 'Не удалось изменить аватар')
     }
 
   }

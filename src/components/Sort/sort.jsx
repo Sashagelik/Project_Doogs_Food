@@ -1,11 +1,10 @@
 import cn from "classnames";
 import "./styles.css";
 
-const Sort = ({currentSort, tabs = [], onChangeSort}) => {
+const Sort = ({ currentSort, tabs = [], onChangeSort }) => {
 
 
- const handleClick = (e, tab) => {
-
+  const handleClick = (e, tab) => {
     e.preventDefault();
     onChangeSort(tab.id)
   }

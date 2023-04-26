@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import './styles.css';
 import telegram from "./img/telegram.svg";
 import instagram from "./img/instagram.svg";

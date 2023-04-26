@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../utils/api";
 import { pattern } from "../../../utils/validation";
 import authApi from "../../../utils/authApi";
+import openNotification from "../../Notification/Notification";
 
 const Login = ({ setActiveModal }) => {
 
@@ -33,7 +34,7 @@ const Login = ({ setActiveModal }) => {
       localStorage.setItem('token', res.token)
       navigate('/')
     } catch (error) {
-      alert("Неправильный логин и пароль", error)
+      openNotification('error', 'Ошибка',"Неправильный логин и пароль")
     }
   }
 

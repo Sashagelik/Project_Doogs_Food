@@ -5,6 +5,7 @@ import s from '../Reiting/styles.module.css';
 
 
 const Raiting = ({ raiting, setRaiting, isEditable = false }) => {
+  
 
   //Создаем массив из пяти реакт-фрагментов, чтобы потом полoжить в них svg
   const emptyFragment = new Array(5).fill(<> </>)
@@ -12,17 +13,17 @@ const Raiting = ({ raiting, setRaiting, isEditable = false }) => {
   const [raitingArr, setRaitingArr] = useState(emptyFragment)
 
   const changeDisplay = (raiting) => {
-    if (!isEditable) return
-    construcRaiting(raiting)
+    if (!isEditable) return construcRaiting(raiting)
   }
-
+// Отображает (закрашивает по нажатию на событие OnClick) рейтинг
   const changeRating = (rate) => {
     if (!isEditable) return
     setRaiting(rate)
   }
 
   const construcRaiting = useCallback((assignedRating) => {
-    const newArrayRaiting = raitingArr.map((item, i) =>
+
+    const newArrayRaiting = raitingArr.map(( item, i) =>
       <Star
         className={cn(s.star, {
           [s.filled]: i < assignedRating,
@@ -37,7 +38,7 @@ const Raiting = ({ raiting, setRaiting, isEditable = false }) => {
 
   useEffect(() => {
     construcRaiting(raiting)
-  }, [construcRaiting])
+  }, [construcRaiting ])
 
   return (
     <div>

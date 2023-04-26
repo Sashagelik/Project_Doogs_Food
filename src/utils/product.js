@@ -18,3 +18,18 @@ export const text = (searchCount) => {
     return "товаров.";
   }
 };
+
+export const tabs = [
+  {
+    id: "cheap",
+    title: "Сначала дешёвые",
+  },
+  {
+    id: "low",
+    title: "Сначала дорогие",
+  },
+  {
+    id: "sale",
+    title: "По скидке",
+  },
+];

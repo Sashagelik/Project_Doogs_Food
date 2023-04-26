@@ -1,0 +1,32 @@
+.pagination {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #fbf3a8a0;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 4px -5px 42px 12px rgba(225, 240, 97, 0.26);
+}
+
+.pageItem {
+  border: 1px solid #f9e10a;
+  padding: .5rem;
+  background-color: #ffe600cd;
+  border-radius: 0.5rem;
+  opacity: .7;
+}
+
+.pageItem:hover {
+  opacity: 1.0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.pageLink {
+  color: #000000;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+}

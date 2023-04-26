@@ -48,8 +48,3 @@ function RegistrationForm({ sendData }) {
 export default RegistrationForm;
 
 
-/*пароль RRR!kju56565*/
-
-/*емайл qwerty@trost12.com*/
-
-/*UserNew*/

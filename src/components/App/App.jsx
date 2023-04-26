@@ -22,6 +22,7 @@ import Register from '../Auth/Register/Register';
 import ResetPassword from '../Auth/ResetPassword/ResetPassword';
 import Profile from '../Profile/Profile';
 import FaqPage from '../../pages/FAQ/FaqPage';
+import openNotification from '../Notification/Notification';
 
 
 export default function App() {
@@ -37,7 +38,8 @@ export default function App() {
   const [isAuthentificated, setIsAuthentificated] = useState(false)
 
   //Функция которая фильтрует продукты по ключу autor и выдает только мои товары 
-  const filtredCards = (products, id) => products.filter((item) => item.author._id === id)
+  // products - отобразятся все товары без фильтра
+  const filtredCards = (products, id) => products/*.filter((item) => item.author._id === id)*/
 
   const navigate = useNavigate()
 
@@ -56,7 +58,7 @@ export default function App() {
   }, [searchQuery])
 
 
-// хук выполняется в том случае если пользователь авторизован
+  // хук-функция выполняется в том случае если пользователь авторизован
   useEffect(() => {
     setIsLoading(true);
     Promise.all([api.getProductList(), api.getUserInfo()])
@@ -112,8 +114,19 @@ export default function App() {
       })
   }, [currentUser, cards])
 
+  //Функция удаления продукта
+  const onProductDelete = async (id) => {
+    try {
+      await api.deleteProduct(id)
+      setCards((prevState) => prevState.filter(item => item._id !== id))
+      openNotification('success','Успешно', 'Продукт удален')
+    } catch (error) {
+      openNotification('error','Ошибка', 'Не удалость удалить продукт')
+    }
+  }
+
   const location = useLocation()
-  
+
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -125,13 +138,16 @@ export default function App() {
       navigate('/login')
     }
 
-  }, [navigate])
+  }, [navigate, location.pathname])
+
+
 
   return (
     <SortContext.Provider value={{ selectedTabId, setSelectedTabId }}>
       <UserContext.Provider value={{ user: currentUser, isLoading, isAuthentificated, setCurrentUser }}>
-        <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
+        <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike, onProductDelete }}>
           <Header setActiveModal={setActiveModal}>
+
             <Logo className="logo logo_place_header" href="/" />
             <Routes>
               <Route path='/' element={<Search onSubmit={handleFormSubmit} onInput={handleInputChange} />} />
