@@ -55,7 +55,7 @@
 
 .cart {
 	padding: 14px 70px;
-	flex: 1;
+	
 }
 
 .left {
@@ -110,9 +110,13 @@
 }
 
 .text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 	font-size: 14px;
 	line-height: 20px;
 	font-weight: 400;
+  margin-bottom: 10px;
 }
 
 .text:not(.text:last-child) {
@@ -181,6 +185,85 @@
 .favoriteActive svg {
 	fill: #F44336;
   stroke: #F44336;
+}
+
+.reitInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Стили для блока отзывов о товаре */
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid #9ca7ad;
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+  color: #1A1A1A;
+}
+
+
+.data {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #7B8E98;
+}
+
+.textarea {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid #979795;
+  border-radius: 12px;
+  resize: none;
+  width: 100%;
+  height: 6rem;
+  caret-color: #FFE44D;
+}
+
+.textarea:hover{
+  border: 1px solid #FFE44D;
+}
+
+.btnSubmit {
+  width: max-content;
+  background-color: #FFE44D;
+  cursor: pointer;
+}
+
+.btnSubmit:hover{
+  opacity: .7;
+}
+
+.review__info {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.review__avatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.basket {
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 1000px) {

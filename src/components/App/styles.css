@@ -28,6 +28,18 @@
   color: #61dafb;
 }
 
+.result {
+  font-size: 45px;
+}
+
+.not__auth {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  flex: 1 0 auto;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -37,6 +49,3 @@
   }
 }
 
-.result {
-  font-size: 45px;
-}

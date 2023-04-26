@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import './styles.css';
 import telegram from "./img/telegram.svg";
 import instagram from "./img/instagram.svg";
@@ -6,6 +6,7 @@ import viber from "./img/viber.svg";
 import whatsapp from "./img/whatsapp.svg";
 import vk from "./img/vk.svg";
 import Logo from "../Logo/logo";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
 	return (
@@ -39,9 +40,9 @@ const Footer = () => {
 							<a href="/catalogue" className="menu-bottom__item">
 								Оплата и доставка
 							</a>
-							<a href="/catalogue" className="menu-bottom__item">
+							<Link to={"/faq"} className="menu-bottom__item">
 								Часто спрашивают
-							</a>
+							</Link>
 							<a href="/catalogue" className="menu-bottom__item">
 								Обратная связь
 							</a>
@@ -88,7 +89,6 @@ const Footer = () => {
 								</li>
 							</ul>
 						</div>
-
 					</div>
 				</div>
 			</div>

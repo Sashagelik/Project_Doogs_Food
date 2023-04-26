@@ -23,6 +23,8 @@ img {
 }
 
 .content {
+  display: grid;
+  height: 100%;
 	padding: 20px 0;
 	flex-grow: 1;
 }

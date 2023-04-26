@@ -3,6 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+  justify-content: flex-end;
 	padding: 10px;
 	border-radius: 10px;
   align-items: start;
@@ -123,7 +124,7 @@
 }
 
 .btn {
-	padding: 10px 18px;
+	padding: 10px 10px;
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 20px;
@@ -132,6 +133,7 @@
 	display: inline-block;
 	transition: background-color .3s;
   color: inherit;
+  cursor: pointer;
 }
 
 .btn_type_primary {
@@ -157,4 +159,19 @@
 .tag_type_sale {
 	background-color: #01A54E;
 	color: #FFFFFF;
+}
+.btnDel {
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.btnDel:hover{
+  background-color: #FFE44D;
+  transition-delay: .1s;
+}
+.activeMenedg{
+  display: flex;
+  align-items: center;
+  gap: 80px;
 }
