@@ -34,11 +34,18 @@
 
 .not__auth {
   display: flex;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   justify-content: center;
   flex: 1 0 auto;
+  gap: 20px;
 }
+.not__auth img {
+  border-radius: 50%;
+  z-index: 1;
+}
+
 
 @keyframes App-logo-spin {
   from {

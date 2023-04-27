@@ -23,6 +23,7 @@ import ResetPassword from '../Auth/ResetPassword/ResetPassword';
 import Profile from '../Profile/Profile';
 import FaqPage from '../../pages/FAQ/FaqPage';
 import openNotification from '../Notification/Notification';
+import Spinner from '../Spinner/Spinner';
 
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
   const filtredCards = (products, id) => products/*.filter((item) => item.author._id === id)*/
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   // функция которая принимает один аргумент searchQuery которая является поисковой
   // строкой запроса, отправляем запрос при вводе в поисковую строку а далее фильтруем   
@@ -89,14 +91,9 @@ export default function App() {
     setSearchQuery(inputValue);
   }
 
-  function handleUpdateUser(userUpdateData) {
-    api.setUserInfo(userUpdateData)
-      .then((newUserData) => {
-        setCurrentUser(newUserData)
-      })
-  }
   // Функция по нажатию и отжатию лайка
   const handleProductLike = useCallback((product) => {
+    console.log(product);
     //Функция isLiked принимает на вход два аргумента (объект продукта и текущего пользователя) 
     const liked = isLiked(product.likes, currentUser._id)
     return api.changeLikeProduct(product._id, liked)
@@ -119,13 +116,13 @@ export default function App() {
     try {
       await api.deleteProduct(id)
       setCards((prevState) => prevState.filter(item => item._id !== id))
-      openNotification('success','Успешно', 'Продукт удален')
+      openNotification('success', 'Успешно', 'Продукт успешно удален')
     } catch (error) {
-      openNotification('error','Ошибка', 'Не удалость удалить продукт')
+      openNotification('error', 'Ошибка', 'Не удалось удалить продукт')
     }
   }
 
-  const location = useLocation()
+
 
 
   useEffect(() => {
@@ -143,11 +140,11 @@ export default function App() {
 
 
   return (
+
     <SortContext.Provider value={{ selectedTabId, setSelectedTabId }}>
       <UserContext.Provider value={{ user: currentUser, isLoading, isAuthentificated, setCurrentUser }}>
-        <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike, onProductDelete }}>
+        <CardContext.Provider value={{debounceSearchQuery, cards, favorites, handleLike: handleProductLike, onProductDelete }}>
           <Header setActiveModal={setActiveModal}>
-
             <Logo className="logo logo_place_header" href="/" />
             <Routes>
               <Route path='/' element={<Search onSubmit={handleFormSubmit} onInput={handleInputChange} />} />
@@ -181,10 +178,14 @@ export default function App() {
               </Route>
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
-            <Routes>
-            </Routes>
           </main> :
-            <h2 className='not__auth'>Пожалуйста авторизуйтесь!
+            <h2 style={{
+              backgroundColor: '#FFE444',
+              borderBottom: '1px solid #000',
+              borderTop: '1px solid #000',
+              margin: '0'
+            }} className='not__auth'><div style={{ display: 'grid', fontSize: '28px' }}>Пожалуйста пройдите процедуру авторизации!</div>
+              <img style={{ width: '200px' }} src='https://im-a-puzzle.com/gallery/Kids/Brown-dog.jpg' alt="logo" />
               <Routes>
                 <Route path='/login'
                   element={

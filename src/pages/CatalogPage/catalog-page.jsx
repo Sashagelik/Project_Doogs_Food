@@ -12,10 +12,13 @@ import { Button } from "antd";
 
 export const CatalogPage = () => {
 
-  const { cards } = useContext(CardContext);
+  const { cards, debounceSearchQuery } = useContext(CardContext);
   const { setSelectedTabId } = useContext(SortContext);
   const [currentPage, setCurrentPage] = useState(1)
-  const [ showCardsPage] = useState(12)
+  const [showCardsPage] = useState(12)
+
+
+
 
   const lastCardsIndex = currentPage * showCardsPage;
 
@@ -23,15 +26,16 @@ export const CatalogPage = () => {
 
   const currentCardPages = cards.slice(firstCardsIndex, lastCardsIndex);
 
+
   const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber)
   }, [])
 
   const nextPage = () => {
-    return setCurrentPage(prevState => prevState + 1 )
+    return setCurrentPage(prevState => prevState + 1)
   }
   const prevPage = () => {
-    return setCurrentPage(prevState => prevState - 1 )
+    return setCurrentPage(prevState => prevState - 1)
   }
 
   return (
@@ -40,12 +44,11 @@ export const CatalogPage = () => {
       <div className='content__cards'>
         <CardList cards={currentCardPages} />
       </div>
-      <Pagination paginate={paginate} totalCards={cards.length} showCardsPage={showCardsPage} />
-      <div style={{ display: 'flex', gap: '1rem', justifyContent:'center' }}>
+      {!debounceSearchQuery && <Pagination paginate={paginate} totalCards={cards.length} showCardsPage={showCardsPage} />}
+      {!debounceSearchQuery && <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button onClick={prevPage}>Предыдущая страница</Button>
         <Button onClick={nextPage}>Следущая страница</Button>
-      </div>
-
+      </div>}
     </>
   )
 }
