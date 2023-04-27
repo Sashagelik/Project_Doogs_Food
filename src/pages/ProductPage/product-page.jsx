@@ -3,7 +3,7 @@ import { useCallback } from "react"
 import { useParams } from "react-router-dom"
 import { NotFound } from "../../components/NotFound/NotFound"
 import { Product } from "../../components/Product/product"
-import Spinner from "../../components/Spinner"
+import Spinner from "../../components/Spinner/Spinner"
 import { CardContext } from "../../context/cardContext"
 import { useApi } from "../../hooks/useApi"
 import api from "../../utils/api"
@@ -30,7 +30,6 @@ export const ProductPage = () => {
   }, [product, handleLike, setProduct])
 
   const onSendReview = (newProduct) => {
-    console.log(newProduct);
     setProduct({ ...newProduct })
   }
 

@@ -6,7 +6,6 @@ import openEye from "./img/eye-open-svgrepo-com.svg";
 import closeEye from "./img/eye-close-svgrepo-com.svg";
 import BaseButton from "../../BaseButton/BaseButton";
 import { useNavigate } from "react-router-dom";
-import api from "../../../utils/api";
 import { pattern } from "../../../utils/validation";
 import authApi from "../../../utils/authApi";
 import openNotification from "../../Notification/Notification";

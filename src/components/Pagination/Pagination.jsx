@@ -1,4 +1,4 @@
-import s from '../Pagination/Pagination.module.css'
+import s from '../Pagination/Pagination.module.css';
 
 const Pagination = ({ totalCards, showCardsPage, paginate }) => {
 
@@ -7,7 +7,6 @@ const Pagination = ({ totalCards, showCardsPage, paginate }) => {
 
   for (let i = 1; i <= Math.ceil(totalCards / showCardsPage); i++) {
     pageNumbers.push(i)
-
   }
 
   return (

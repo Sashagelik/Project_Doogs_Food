@@ -15,9 +15,6 @@ function Header({ children, setActiveModal }) {
   const { isAuthentificated } = useContext(UserContext)
   const { favorites } = useContext(CardContext)
 
-
-
-
   return (
     <header className={cn(s.header, 'cover')}>
       <div className="container">
